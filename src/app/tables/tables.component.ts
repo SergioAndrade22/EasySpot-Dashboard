@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { GPSLocation } from '../types'
+import { Position } from '../types'
 import { GpsPositionsService } from '../services/gps-positions.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
@@ -12,9 +12,9 @@ import { MatSort } from '@angular/material/sort'
   styleUrls: ['./tables.component.sass'],
 })
 export class TablesComponent implements OnInit {
-  positions: GPSLocation[] = []
+  positions: Position[] = []
   displayedColumns: string[] = ['latitude', 'longitude', 'timestamp']
-  dataSource: MatTableDataSource<GPSLocation>
+  dataSource: MatTableDataSource<Position>
 
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
@@ -29,7 +29,7 @@ export class TablesComponent implements OnInit {
   }
 
   refreshDataSource(): void {
-    this.dataSource = new MatTableDataSource<GPSLocation>(this.positions)
+    this.dataSource = new MatTableDataSource<Position>(this.positions)
     this.dataSource.paginator = this.paginator
     this.dataSource.sort = this.sort
   }

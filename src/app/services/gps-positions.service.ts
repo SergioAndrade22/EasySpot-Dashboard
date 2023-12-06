@@ -6,10 +6,10 @@ import {
   SnapshotOptions,
 } from '@angular/fire/firestore'
 import { collection, query, getDocs } from 'firebase/firestore'
-import { GPSLocation } from '../types'
+import { Position } from '../types'
 
 export const positionConverter = {
-  toFirestore(position: GPSLocation): DocumentData {
+  toFirestore(position: Position): DocumentData {
     return { 
       latitude: position.latitude,
       longitude: position.longitude,
@@ -17,9 +17,9 @@ export const positionConverter = {
     }
   },
   fromFirestore(
-    snapshot: QueryDocumentSnapshot<GPSLocation>,
+    snapshot: QueryDocumentSnapshot<Position>,
     options: SnapshotOptions
-  ): GPSLocation {
+  ): Position {
     const data = snapshot.data(options)
     return { 
       latitude: data['latitude'],
