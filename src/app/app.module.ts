@@ -5,7 +5,7 @@ import { AppComponent } from './app.component'
 import { environment } from 'src/environments/environment'
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
 import { provideFirestore, getFirestore } from '@angular/fire/firestore'
-import { GpsPositionsService } from './services/gps-positions.service'
+import { GpsPositionsService } from './services/position/gps-positions.service'
 import { LayoutComponent } from './layout/layout.component'
 import { FooterComponent } from './layout/footer/footer.component'
 import { HeaderComponent } from './layout/header/header.component'
@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatTableModule } from '@angular/material/table'
 import { provideAnimations } from '@angular/platform-browser/animations'
 import { MatSortModule } from '@angular/material/sort'
+import { GeneralMorphService } from './services/generalMorph/general-morph.service'
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { MatSortModule } from '@angular/material/sort'
   ],
   providers: [
     GpsPositionsService,
+    GeneralMorphService,
     importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
     importProvidersFrom(provideFirestore(() => getFirestore())),
     provideAnimations(),

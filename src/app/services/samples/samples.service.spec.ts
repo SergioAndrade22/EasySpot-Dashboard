@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing'
+import { SamplesService } from './samples.service'
 
-import { GpsPositionsService } from './gps-positions.service'
-
-describe('GpsPositionsService', () => {
-  let service: GpsPositionsService
+describe('SamplesService', () => {
+  let service: SamplesService
 
   beforeEach(() => {
     TestBed.configureTestingModule({})
-    service = TestBed.inject(GpsPositionsService)
+    service = TestBed.inject(SamplesService)
   })
 
   it('should be created', () => {

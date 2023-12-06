@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { Position } from '../types'
-import { GpsPositionsService } from '../services/gps-positions.service'
+import { GpsPositionsService } from '../services/position/gps-positions.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'

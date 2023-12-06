@@ -1,0 +1,75 @@
+import { GeneralMorph } from '../../types'
+import { DocumentData, QueryDocumentSnapshot, SnapshotOptions } from '@angular/fire/firestore'
+
+export const converter = {
+    toFirestore(gm: GeneralMorph): DocumentData {
+      return {
+        analCloaca: gm.analCloaca,
+        art: gm.art,
+        carapaceAC: gm.carapaceAC,
+        carapaceLMC: gm.carapaceLMC,
+        carapaceLSC: gm.carapaceLSC,
+        code: gm.code,
+        comments: gm.comments,
+        condition: gm.condition,
+        contact: gm.contact,
+        destination: gm.destination,
+        event: gm.event,
+        fishingArea: gm.fishingArea,
+        generalLocation: gm.generalLocation,
+        headAC: gm.headAC,
+        headLC: gm.headLC,
+        headLC2: gm.headLC2,
+        locality: gm.locality,
+        mappingLocation: gm.mappingLocation,
+        plastronAC: gm.plastronAC,
+        plastronLC: gm.plastronLC,
+        plastronAnal: gm.plastronAnal,
+        position: gm.position,
+        responsible: gm.responsible,
+        sex: gm.sex,
+        specie: gm.specie,
+        stage: gm.stage,
+        status: gm.status,
+        tide: gm.tide,
+        weight: gm.weight,
+      }
+    },
+    fromFirestore(
+      snapshot: QueryDocumentSnapshot<GeneralMorph>,
+      options: SnapshotOptions
+    ): GeneralMorph {
+      const data = snapshot.data(options)
+      return { 
+        analCloaca: data['analCloaca'],
+        art: data['art'],
+        carapaceAC: data['carapaceAC'],
+        carapaceLMC: data['carapaceLMC'],
+        carapaceLSC: data['carapaceLSC'],
+        code: data['code'],
+        comments: data['comments'],
+        condition: data['condition'],
+        contact: data['contact'],
+        destination: data['destination'],
+        event: data['event'],
+        fishingArea: data['fishingArea'],
+        generalLocation: data['generalLocation'],
+        headAC: data['headAC'],
+        headLC: data['headLC'],
+        headLC2: data['headLC2'],
+        locality: data['locality'],
+        mappingLocation: data['mappingLocation'],
+        plastronAC: data['plastronAC'],
+        plastronLC: data['plastronLC'],
+        plastronAnal: data['plastronAnal'],
+        position: data['position'],
+        responsible: data['responsible'],
+        sex: data['sex'],
+        specie: data['specie'],
+        stage: data['stage'],
+        status: data['status'],
+        tide: data['tide'],
+        weight: data['weight'],
+      }
+    },
+  }
