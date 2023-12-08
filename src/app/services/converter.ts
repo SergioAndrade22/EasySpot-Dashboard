@@ -7,7 +7,8 @@ import { Position } from '../types'
 
 export const converter = {
     toFirestore(position: Position): DocumentData {
-      return { 
+      return {
+        id: position.id,
         code: position.code,
         latitude: position.latitude,
         longitude: position.longitude,
@@ -19,7 +20,8 @@ export const converter = {
       options: SnapshotOptions
     ): Position {
       const data = snapshot.data(options)
-      return { 
+      return {
+        id: snapshot.id,
         code: data['code'],
         latitude: data['latitude'],
         longitude: data['longitude'],

@@ -10,6 +10,7 @@ type Column = {
   key: string
   type: string
   label: string
+  editable: boolean
 }
 
 const COLUMNS_SCHEMA: Column[] = [
@@ -17,30 +18,36 @@ const COLUMNS_SCHEMA: Column[] = [
     key: 'code',
     type: 'text',
     label: 'Código',
+    editable: true,
   },
   {
     key: 'date',
     type: 'text',
     label: 'Fecha',
+    editable: false,
   },
   {
     key: 'time',
     type: 'time',
     label: 'Hora',
+    editable: false,
   },
   {
     key: 'longitude',
     type: 'text',
     label: 'Longitud',
+    editable: false,
   },
   {
     key: 'latitude',
     type: 'text',
     label: 'Latitud',
+    editable: false,
   },
 ]
 
 type DisplayPosition = {
+  id: string
   code: string
   date: string
   time: string
@@ -87,14 +94,15 @@ export class TablesComponent implements OnInit {
   }
 
   updatePositions(): void {
-    console.log(this.dataSource.data.map(this.toDatabasePosition))
+    this.positionsService.updatePositions(this.dataSource.data.map(this.toDatabasePosition))
   }
 
   toDisplayPosition(position: Position): DisplayPosition {
     return {
+      id: position.id,
       code: position.code,
-      date: formatDate(new Date(position.timestamp * 1000), "dd/MM/yyyy", "en"),
-      time: formatDate(new Date(position.timestamp * 1000), "HH:mm", "en"),
+      date: formatDate(new Date(position.timestamp), "dd/MM/yyyy", "en"),
+      time: formatDate(new Date(position.timestamp), "HH:mm", "en"),
       longitude: position.longitude.toString(),
       latitude: position.latitude.toString(),
       timestamp: position.timestamp,
@@ -103,7 +111,8 @@ export class TablesComponent implements OnInit {
 
   toDatabasePosition(position: DisplayPosition): Position {
     return {
-      code: position.code,
+      id: position.id,
+      code: position.code || "",
       longitude: parseFloat(position.longitude),
       latitude: parseFloat(position.latitude),
       timestamp: position.timestamp,
