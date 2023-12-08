@@ -3,7 +3,7 @@ import {
     QueryDocumentSnapshot,
     SnapshotOptions,
 } from '@angular/fire/firestore'
-import { Position } from '../types'
+import { Position } from '../../types'
 
 export const converter = {
     toFirestore(position: Position): DocumentData {

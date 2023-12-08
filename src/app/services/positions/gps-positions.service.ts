@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core'
 import { Firestore } from '@angular/fire/firestore'
 import { collection, query, getDocs, updateDoc, doc } from 'firebase/firestore'
 import { converter } from './converter'
-import { Position } from '../types'
+import { Position } from '../../types'
 
 @Injectable({
   providedIn: 'root',

@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { Position } from '../types'
-import { GpsPositionsService } from '../services/gps-positions.service'
+import { GpsPositionsService } from '../services/positions/gps-positions.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
 import { formatDate } from '@angular/common'
 import { Sort } from '@angular/material/sort'
+import { CsvService } from '../services/csv/csv.service'
 
 type Column = {
   key: string
@@ -14,7 +15,7 @@ type Column = {
   editable: boolean
 }
 
-const COLUMNS_SCHEMA: Column[] = [
+export const COLUMNS_SCHEMA: Column[] = [
   {
     key: 'code',
     type: 'text',
@@ -47,7 +48,7 @@ const COLUMNS_SCHEMA: Column[] = [
   },
 ]
 
-type DisplayPosition = {
+export type DisplayPosition = {
   id: string
   code: string
   date: string
@@ -74,7 +75,7 @@ export class TablesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 
-  constructor(private positionsService: GpsPositionsService) {}
+  constructor(private positionsService: GpsPositionsService, private csvService: CsvService) {}
 
   ngOnInit(): void {
     this.fetchPositions()
@@ -155,5 +156,9 @@ export class TablesComponent implements OnInit {
 
   compare(a: string, b: string, isAsc: boolean) {
     return (a.toLocaleLowerCase() > b.toLocaleLowerCase() ? -1 : 1) * (isAsc ? 1 : -1)
+  }
+
+  download() {
+    this.csvService.exportToCsv('posiciones.csv', this.dataSource.data)
   }
 }
