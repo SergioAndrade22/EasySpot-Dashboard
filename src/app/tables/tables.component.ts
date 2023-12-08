@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatSort } from '@angular/material/sort'
 import { formatDate } from '@angular/common'
+import { Sort } from '@angular/material/sort'
 
 type Column = {
   key: string
@@ -64,6 +65,8 @@ type DisplayPosition = {
 export class TablesComponent implements OnInit {
   loading = false
   positions: Position[] = []
+  displayPositions: DisplayPosition[] = []
+  sortedPositions: DisplayPosition[]
   columnsSchema: Column[] = COLUMNS_SCHEMA
   displayedColumns: string[] = COLUMNS_SCHEMA.map((col) => col.key)
   dataSource: MatTableDataSource<DisplayPosition>
@@ -87,14 +90,15 @@ export class TablesComponent implements OnInit {
   }
 
   refreshDataSource(): void {
-    this.dataSource = new MatTableDataSource<DisplayPosition>(this.positions.map(this.toDisplayPosition))
+    this.displayPositions = this.positions.map(this.toDisplayPosition)
+    this.dataSource = new MatTableDataSource<DisplayPosition>(this.displayPositions)
     this.dataSource.paginator = this.paginator
     this.dataSource.sort = this.sort
     this.loading = false
   }
 
   updatePositions(): void {
-    this.positionsService.updatePositions(this.dataSource.data.map(this.toDatabasePosition))
+    this.positionsService.updatePositions(this.displayPositions.map(this.toDatabasePosition))
   }
 
   toDisplayPosition(position: Position): DisplayPosition {
@@ -117,5 +121,39 @@ export class TablesComponent implements OnInit {
       latitude: parseFloat(position.latitude),
       timestamp: position.timestamp,
     }
+  }
+
+  sortData(sort: Sort) {
+    const data = this.displayPositions.slice()
+    if (!sort.active || sort.direction === '') {
+      this.sortedPositions = data
+      return
+    }
+
+    console.log(sort)
+
+    this.sortedPositions = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc'
+      switch (sort.active) {
+        case 'code':
+          return this.compare(a.code, b.code, isAsc)
+        case 'date':
+          return this.compare(a.date, b.date, isAsc)
+        case 'time':
+          return this.compare(a.time, b.time, isAsc)
+        case 'longitude':
+          return this.compare(a.longitude, b.longitude, isAsc)
+        case 'latitude':
+          return this.compare(a.latitude, b.latitude, isAsc)
+        default:
+          return 0
+      }
+    })
+    this.dataSource.data = this.sortedPositions
+
+  }
+
+  compare(a: string, b: string, isAsc: boolean) {
+    return (a.toLocaleLowerCase() > b.toLocaleLowerCase() ? -1 : 1) * (isAsc ? 1 : -1)
   }
 }
