@@ -36,8 +36,8 @@ import { CsvService } from './services/csv/csv.service'
   imports: [
     BrowserModule,
     AppRoutingModule,
-    provideFirestore(() => getFirestore()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
     MatToolbarModule,
     MatButtonModule,
     MatPaginatorModule,

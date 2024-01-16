@@ -1,6 +1,12 @@
 import { Injectable, inject } from '@angular/core'
-import { Firestore } from '@angular/fire/firestore'
-import { collection, query, getDocs, updateDoc, doc } from 'firebase/firestore'
+import { 
+  collection,
+  doc,
+  Firestore,
+  getDocs,
+  query,
+  updateDoc,
+} from '@angular/fire/firestore'
 import { converter } from './converter'
 import { Position } from '../../types'
 
@@ -8,9 +14,11 @@ import { Position } from '../../types'
   providedIn: 'root',
 })
 export class GpsPositionsService {
-  firestore: Firestore = inject(Firestore)
+  private firestore: Firestore = inject(Firestore)
 
   getPositions = () => {
+    const c = collection(this.firestore, "positions").withConverter(converter)
+    console.log("The colleciton:", c)
     const q = query(collection(this.firestore, "positions").withConverter(converter))
     return getDocs(q)
   }

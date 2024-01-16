@@ -85,7 +85,7 @@ export class TablesComponent implements OnInit {
     this.loading = true
     this.positionsService.getPositions().then((snapshot) => {
       this.positions = []
-      snapshot.forEach((position) => this.positions.push(position.data()))
+      snapshot.forEach((position) => this.positions.push(position.data() as Position))
       this.refreshDataSource()
     })
   }
