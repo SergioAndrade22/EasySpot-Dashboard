@@ -17,8 +17,6 @@ export class GpsPositionsService {
   private firestore: Firestore = inject(Firestore)
 
   getPositions = () => {
-    const c = collection(this.firestore, "positions").withConverter(converter)
-    console.log("The colleciton:", c)
     const q = query(collection(this.firestore, "positions").withConverter(converter))
     return getDocs(q)
   }
