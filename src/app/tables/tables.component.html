@@ -1,9 +1,9 @@
 <div class="mat-elevation-z8 container container--main">
     <div class="container container--buttons">
-        <button (click)="fetchPositions()" mat-button color="primary" mat-raised-button matTooltip="Carga la tabla nuevamente. Reemplaza cualquier cambio no guardado.">
+        <button (click)="refresh()" mat-button color="primary" mat-raised-button matTooltip="Carga la tabla nuevamente. Reemplaza cualquier cambio no guardado.">
             Recargar Datos
         </button>
-        <button (click)="updatePositions()" mat-button color="warn" mat-raised-button matTooltip="Guarda los cambios en la base de datos.">
+        <button (click)="save()" mat-button color="warn" mat-raised-button matTooltip="Guarda los cambios en la base de datos.">
             Guardar Cambios
         </button>
     </div>
@@ -31,7 +31,7 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
     </mat-paginator>
     <div class="container container--buttons">
-        <button (click)="download()" mat-button color="primary" mat-stroked-button matTooltip="Descargar el estado actual de la tabla como .csv">
+        <button class="utility--no_border" (click)="download()" mat-button color="primary" mat-stroked-button matTooltip="Descargar el estado actual de la tabla como .csv">
             Descargar Datos
         </button>
     </div>

@@ -23,6 +23,8 @@ import { FormsModule } from '@angular/forms'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { CsvService } from './services/csv/csv.service'
+import { MatDialogModule } from '@angular/material/dialog'
+import { ModalComponent } from './modal/modal.component'
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { CsvService } from './services/csv/csv.service'
     HeaderComponent,
     HomeComponent,
     TablesComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,7 @@ import { CsvService } from './services/csv/csv.service'
     FormsModule,
     MatProgressSpinnerModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
   providers: [
     GpsPositionsService,

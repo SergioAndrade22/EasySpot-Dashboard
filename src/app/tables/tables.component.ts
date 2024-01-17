@@ -7,6 +7,8 @@ import { MatSort } from '@angular/material/sort'
 import { formatDate } from '@angular/common'
 import { Sort } from '@angular/material/sort'
 import { CsvService } from '../services/csv/csv.service'
+import { MatDialog } from '@angular/material/dialog'
+import { ModalComponent } from '../modal/modal.component'
 
 type Column = {
   key: string
@@ -14,6 +16,8 @@ type Column = {
   label: string
   editable: boolean
 }
+
+type ModalValue = "refresh" | "save" | "download"
 
 export const COLUMNS_SCHEMA: Column[] = [
   {
@@ -72,10 +76,19 @@ export class TablesComponent implements OnInit {
   displayedColumns: string[] = COLUMNS_SCHEMA.map((col) => col.key)
   dataSource: MatTableDataSource<DisplayPosition>
 
+  messages = {
+    "refresh": "Refrescar la información eliminará cualquier cambio no guardado.",
+    "save": "El guardado es permanente y la información reemplazada será sobreescrita.",
+    "download": "Se generará un archivo .csv con el contenido actual de la tabla, incluídos los cambios no guardados en la base de datos.",
+  }
+
   @ViewChild(MatPaginator) paginator: MatPaginator
   @ViewChild(MatSort) sort: MatSort
 
-  constructor(private positionsService: GpsPositionsService, private csvService: CsvService) {}
+  constructor(
+    private positionsService: GpsPositionsService,
+    private csvService: CsvService,
+    public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.fetchPositions()
@@ -88,6 +101,34 @@ export class TablesComponent implements OnInit {
       snapshot.forEach((position) => this.positions.push(position.data() as Position))
       this.refreshDataSource()
     })
+  }
+
+  toCsv() {
+    this.csvService.exportToCsv('posiciones.csv', this.dataSource.data)
+  }
+
+  showDialog(type: ModalValue, confirmationFunction: () => void): void {
+    this.dialog
+      .open(ModalComponent, {
+        data: this.messages[type],
+      })
+      .afterClosed()
+      .subscribe((confirmation: boolean) => {
+        if (confirmation)
+          confirmationFunction()
+      })
+  }
+
+  refresh(): void {
+    this.showDialog("refresh", () => this.fetchPositions())
+  }
+
+  save(): void {
+    this.showDialog("save", () => this.updatePositions())
+  }
+
+  download(): void{
+    this.showDialog("download", () => this.toCsv())
   }
 
   refreshDataSource(): void {
@@ -156,9 +197,5 @@ export class TablesComponent implements OnInit {
 
   compare(a: string, b: string, isAsc: boolean) {
     return (a.toLocaleLowerCase() > b.toLocaleLowerCase() ? -1 : 1) * (isAsc ? 1 : -1)
-  }
-
-  download() {
-    this.csvService.exportToCsv('posiciones.csv', this.dataSource.data)
   }
 }
