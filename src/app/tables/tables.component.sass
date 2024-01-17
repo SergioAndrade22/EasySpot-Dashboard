@@ -15,10 +15,16 @@
     &--field
         padding: 0.2rem 0 0 0
 
+::ng-deep .mat-sort-header-container
+    justify-content: center
+
 .field
     &--disabled
         pointer-events: none
         cursor: default
 
-.utility--no_border
-    border: none !important
+.utility
+    &--no_border
+        border: none !important
+    &--text_end
+        text-align: end

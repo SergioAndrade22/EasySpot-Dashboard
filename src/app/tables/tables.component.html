@@ -18,7 +18,17 @@
                 </th>
                 <td mat-cell *matCellDef="let element">
                     <mat-form-field class="container--field">
-                        <input class="field" [ngClass]="col.editable ? 'field--editable' : 'field--disabled'" [type]="col.type" matInput [(ngModel)]="element[col.key]" [readonly]="!col.editable">
+                        <input class="field" 
+                            matInput
+                            [ngClass]="{
+                                'field--editable': col.editable,
+                                'field--disabled': !col.editable,
+                                'utility--text_end': col.key !== 'code',
+                            }"
+                            [type]="col.type"
+                            [(ngModel)]="element[col.key]"
+                            [readonly]="!col.editable"
+                        >
                     </mat-form-field>
                 </td>
             </ng-container>

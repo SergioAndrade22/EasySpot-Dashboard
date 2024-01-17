@@ -135,8 +135,22 @@ export class TablesComponent implements OnInit {
     this.displayPositions = this.positions.map(this.toDisplayPosition)
     this.dataSource = new MatTableDataSource<DisplayPosition>(this.displayPositions)
     this.dataSource.paginator = this.paginator
+    this.setPaginatorText()
     this.dataSource.sort = this.sort
     this.loading = false
+  }
+
+  setPaginatorText(): void {
+    const paginatorIntl = this.paginator._intl
+    paginatorIntl.itemsPerPageLabel = "Elementos por página"
+    paginatorIntl.firstPageLabel = "Primera página"
+    paginatorIntl.lastPageLabel = "Última página"
+    paginatorIntl.nextPageLabel = "Página siguiente"
+    paginatorIntl.previousPageLabel = "Página anterior"
+    paginatorIntl.getRangeLabel = (page, pageSize, length) => {
+      const start = page * pageSize + 1
+      const end = (page + 1) * pageSize
+      return `${start} - ${end > length ? length :  end} de ${length}`}
   }
 
   updatePositions(): void {
