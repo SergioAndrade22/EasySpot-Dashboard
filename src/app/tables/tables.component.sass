@@ -4,16 +4,23 @@
     &--main
         flex-direction: column
         padding: 0.5rem
+    
+    &--table
+        overflow-x: auto
 
     &--buttons
         justify-content: flex-end
         gap: 0.5rem
 
-    &--spinner
-        justify-content: center
-
     &--field
         padding: 0.2rem 0 0 0
+
+.spinner
+    align-self: center
+
+.main_table
+    width: 100%
+    border-collapse: collapse
 
 ::ng-deep .mat-sort-header-container
     justify-content: center
