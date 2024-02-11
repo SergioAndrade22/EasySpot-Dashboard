@@ -9,7 +9,6 @@ import { GpsPositionsService } from './services/positions/gps-positions.service'
 import { LayoutComponent } from './layout/layout.component'
 import { FooterComponent } from './layout/footer/footer.component'
 import { HeaderComponent } from './layout/header/header.component'
-import { HomeComponent } from './home/home.component'
 import { TablesComponent } from './tables/tables.component'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button'
@@ -32,7 +31,6 @@ import { ModalComponent } from './modal/modal.component'
     LayoutComponent,
     FooterComponent,
     HeaderComponent,
-    HomeComponent,
     TablesComponent,
     ModalComponent,
   ],
