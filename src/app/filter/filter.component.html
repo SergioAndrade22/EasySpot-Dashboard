@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Filtro</h1>
+<mat-form-field class="container example-form-field">
+    <mat-label>Seleccione el rango de fechas</mat-label>
+    <mat-date-range-input
+        [formGroup]="dateGroup"
+        [rangePicker]="dateGroupPicker">
+        <input matStartDate placeholder="Start date" formControlName="start">
+        <input matEndDate placeholder="End date" formControlName="end">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="dateGroupPicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #dateGroupPicker></mat-date-range-picker>
+</mat-form-field>
+<div class="container--buttons" mat-dialog-actions>
+    <button mat-button color="warn" (click)="closeDialog()">Cancelar</button>
+    <button mat-button color="primary" (click)="confirmation()" cdkFocusInitial>Continuar</button>
+</div>

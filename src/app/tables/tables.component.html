@@ -1,11 +1,14 @@
 <div class="mat-elevation-z8 container container--main">
-    <div class="container container--buttons">
-        <button (click)="refresh()" mat-button color="primary" mat-raised-button matTooltip="Carga la tabla nuevamente. Reemplaza cualquier cambio no guardado.">
-            Recargar Datos
-        </button>
-        <button (click)="save()" mat-button color="warn" mat-raised-button matTooltip="Guarda los cambios en la base de datos.">
-            Guardar Cambios
-        </button>
+    <div class="table--header">
+        <button (click)="filter()" mat-button color="accent" mat-raised-button matTooltip="Filtra el contenido de la tabla.">Filtrar</button>
+        <div class="container container--buttons">
+            <button (click)="refresh()" mat-button color="primary" mat-raised-button matTooltip="Carga la tabla nuevamente. Reemplaza cualquier cambio no guardado.">
+                Recargar Datos
+            </button>
+            <button (click)="save()" mat-button color="warn" mat-raised-button matTooltip="Guarda los cambios en la base de datos.">
+                Guardar Cambios
+            </button>
+        </div>
     </div>
     <mat-spinner class="spinner" *ngIf="loading; else elseBlock"></mat-spinner>
     <ng-template  #elseBlock>

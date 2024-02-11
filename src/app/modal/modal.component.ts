@@ -6,10 +6,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.sass'],
 })
-export class ModalComponent {
+export class ConfirmationModalComponent {
   constructor(
-      public reference: MatDialogRef<ModalComponent>,
-      @Inject(MAT_DIALOG_DATA) public message: string) { }
+    public reference: MatDialogRef<ConfirmationModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public message: string) { }
 
       cerrarDialogo(): void {
         this.reference.close(false)

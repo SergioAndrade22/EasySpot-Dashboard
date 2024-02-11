@@ -18,12 +18,15 @@ import { provideAnimations } from '@angular/platform-browser/animations'
 import { MatSortModule } from '@angular/material/sort'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { CsvService } from './services/csv/csv.service'
 import { MatDialogModule } from '@angular/material/dialog'
-import { ModalComponent } from './modal/modal.component'
+import { ConfirmationModalComponent } from './modal/modal.component'
+import { FilterComponent } from './filter/filter.component'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core'
 
 @NgModule({
   declarations: [
@@ -32,7 +35,8 @@ import { ModalComponent } from './modal/modal.component'
     FooterComponent,
     HeaderComponent,
     TablesComponent,
-    ModalComponent,
+    ConfirmationModalComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,9 @@ import { ModalComponent } from './modal/modal.component'
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatDialogModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
   ],
   providers: [
     GpsPositionsService,
@@ -57,6 +64,7 @@ import { ModalComponent } from './modal/modal.component'
     importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
     importProvidersFrom(provideFirestore(() => getFirestore())),
     provideAnimations(),
+    [{provide: MAT_DATE_LOCALE, useValue: 'es-AR'}],
   ],
   bootstrap: [AppComponent],
 })

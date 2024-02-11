@@ -8,7 +8,8 @@ import { formatDate } from '@angular/common'
 import { Sort } from '@angular/material/sort'
 import { CsvService } from '../services/csv/csv.service'
 import { MatDialog } from '@angular/material/dialog'
-import { ModalComponent } from '../modal/modal.component'
+import { ConfirmationModalComponent } from '../modal/modal.component'
+import { FilterComponent } from '../filter/filter.component'
 
 type Column = {
   key: string
@@ -109,7 +110,7 @@ export class TablesComponent implements OnInit {
 
   showDialog(type: ModalValue, confirmationFunction: () => void): void {
     this.dialog
-      .open(ModalComponent, {
+      .open(ConfirmationModalComponent, {
         data: this.messages[type],
       })
       .afterClosed()
@@ -117,6 +118,25 @@ export class TablesComponent implements OnInit {
         if (confirmation)
           confirmationFunction()
       })
+  }
+
+  filter() {
+    this.dialog.open(FilterComponent, {
+      data: "Data",
+    })
+    .afterClosed()
+    .subscribe((result: {start: number, end: number, successful: boolean}) => {
+      if(result.successful) {
+        this.displayPositions = this.positions
+          .filter((position) => result.start <= position.timestamp && position.timestamp <= result.end)
+          .map(this.toDisplayPosition)
+          .sort((a,b) => a.timestamp < b.timestamp ? 1 : a.timestamp === b.timestamp ? 0 : -1)
+        this.dataSource = new MatTableDataSource<DisplayPosition>(this.displayPositions)
+        this.dataSource.paginator = this.paginator
+        this.setPaginatorText()
+        this.dataSource.sort = this.sort
+      }
+    })
   }
 
   refresh(): void {
