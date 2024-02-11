@@ -132,7 +132,7 @@ export class TablesComponent implements OnInit {
   }
 
   refreshDataSource(): void {
-    this.displayPositions = this.positions.map(this.toDisplayPosition)
+    this.displayPositions = this.positions.map(this.toDisplayPosition).sort((a,b) => a.timestamp < b.timestamp ? 1 : a.timestamp === b.timestamp ? 0 : -1)
     this.dataSource = new MatTableDataSource<DisplayPosition>(this.displayPositions)
     this.dataSource.paginator = this.paginator
     this.setPaginatorText()
@@ -186,8 +186,6 @@ export class TablesComponent implements OnInit {
       return
     }
 
-    console.log(sort)
-
     this.sortedPositions = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc'
       switch (sort.active) {
@@ -206,7 +204,6 @@ export class TablesComponent implements OnInit {
       }
     })
     this.dataSource.data = this.sortedPositions
-
   }
 
   compare(a: string, b: string, isAsc: boolean) {
