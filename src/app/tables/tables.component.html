@@ -1,11 +1,11 @@
 <div class="mat-elevation-z8 container container--main">
     <div class="table--header">
-        <button (click)="filter()" mat-button color="accent" mat-raised-button matTooltip="Filtra el contenido de la tabla.">Filtrar</button>
+        <button (click)="filter()" mat-button color="accent" mat-raised-button matTooltip="Filtrar el contenido de la tabla.">Filtrar</button>
         <div class="container container--buttons">
-            <button (click)="refresh()" mat-button color="primary" mat-raised-button matTooltip="Carga la tabla nuevamente. Reemplaza cualquier cambio no guardado.">
+            <button (click)="refresh()" mat-button color="primary" mat-raised-button matTooltip="Cargar la tabla nuevamente. Reemplaza cualquier cambio no guardado.">
                 Recargar Datos
             </button>
-            <button (click)="save()" mat-button color="warn" mat-raised-button matTooltip="Guarda los cambios en la base de datos.">
+            <button (click)="save()" mat-button color="warn" mat-raised-button matTooltip="Guardar los cambios en la base de datos.">
                 Guardar Cambios
             </button>
         </div>
@@ -43,7 +43,8 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
     </mat-paginator>
-    <div class="container container--buttons">
+    <div class="container justify-between">
+        <button class="utility--no_border" (click)="downloadApp()" mat-button color="primary" mat-stroked-button matTooltip="Mostrar opciones para descargar la aplicación de pescadores.">Descargar aplicación para pescadores</button>
         <button class="utility--no_border" (click)="download()" mat-button color="primary" mat-stroked-button matTooltip="Descargar el estado actual de la tabla como .csv">
             Descargar Datos
         </button>

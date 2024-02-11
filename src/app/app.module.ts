@@ -27,6 +27,9 @@ import { ConfirmationModalComponent } from './modal/modal.component'
 import { FilterComponent } from './filter/filter.component'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core'
+import { QRCodeModule } from 'angularx-qrcode'
+import { DownloadComponent } from './download/download.component'
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -37,6 +40,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core'
     TablesComponent,
     ConfirmationModalComponent,
     FilterComponent,
+    DownloadComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,8 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core'
     MatNativeDateModule,
     MatDatepickerModule,
     ReactiveFormsModule,
+    QRCodeModule,
+    MatIconModule,
   ],
   providers: [
     GpsPositionsService,

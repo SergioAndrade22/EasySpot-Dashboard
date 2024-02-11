@@ -1,0 +1,7 @@
+<div class="container">
+    <button class="close" (click)="closeDialog()" mat-icon-button aria-label="Close">
+        <mat-icon>close</mat-icon>
+    </button>
+    <a mat-button href="https://github.com/Quelona-UNS/Quelona-Mobile/releases/download/AppFinal/app.apk" target="_blank">Link de descarga</a>
+    <qrcode [qrdata]="'https://github.com/Quelona-UNS/Quelona-Mobile/releases/download/AppFinal/app.apk'" [width]="256" [errorCorrectionLevel]="'H'"></qrcode>
+</div>

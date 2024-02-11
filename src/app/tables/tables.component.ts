@@ -10,6 +10,7 @@ import { CsvService } from '../services/csv/csv.service'
 import { MatDialog } from '@angular/material/dialog'
 import { ConfirmationModalComponent } from '../modal/modal.component'
 import { FilterComponent } from '../filter/filter.component'
+import { DownloadComponent } from '../download/download.component'
 
 type Column = {
   key: string
@@ -228,5 +229,9 @@ export class TablesComponent implements OnInit {
 
   compare(a: string, b: string, isAsc: boolean) {
     return (a.toLocaleLowerCase() > b.toLocaleLowerCase() ? -1 : 1) * (isAsc ? 1 : -1)
+  }
+
+  downloadApp() {
+    this.dialog.open(DownloadComponent)
   }
 }
