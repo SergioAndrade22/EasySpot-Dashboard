@@ -1,4 +1,4 @@
-# QuelonaDashboard
+# EasySpot Dashboard
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
 
@@ -12,7 +12,7 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Add the `--output-path docs` command to comply with GHPages configurations and update running build, final command would look like: `ng build --output-path docs --base-href=/Quelona-Dashboard/`, or simply `npm run docs`.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Add the `--output-path docs` command to comply with GHPages configurations and update running build, final command would look like: `ng build --output-path docs --base-href=/easyspot-dashboard/`, or simply `npm run docs`.
 
 ## Running unit tests
 

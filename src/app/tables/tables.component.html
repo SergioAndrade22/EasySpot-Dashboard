@@ -19,8 +19,9 @@
                         {{ col.label }}
                     </th>
                     <td mat-cell *matCellDef="let element">
-                        <mat-form-field class="container--field">
-                            <input class="field" 
+                        <mat-form-field *ngIf="col.type === 'text' || col.type === 'time'" class="container--field">
+                            <input
+                                class="field" 
                                 matInput
                                 [ngClass]="{
                                     'field--editable': col.editable,
@@ -32,6 +33,24 @@
                                 [readonly]="!col.editable"
                             >
                         </mat-form-field>
+
+                        <img
+                            *ngIf="col.type === 'image' && element[col.key]"
+                            id="base64image"
+                            height="100px"
+                            width="100px"
+                            class="photo"
+                            [src]="element[col.key]"
+                            alt="Imagen no disponible"
+                        />
+
+                        <audio 
+                            *ngIf="col.type === 'audio'"
+                            controls
+                            autobuffer
+                        >
+                            <source [src]="'data:audio/wav;base64,' + element[col.key]" />
+                        </audio>
                     </td>
                 </ng-container>
         

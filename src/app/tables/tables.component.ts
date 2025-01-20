@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { Position } from '../types'
+import { Data } from '../types'
 import { GpsPositionsService } from '../services/positions/gps-positions.service'
 import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
@@ -52,6 +52,24 @@ export const COLUMNS_SCHEMA: Column[] = [
     label: 'Latitud',
     editable: false,
   },
+  {
+    key: 'description',
+    type: 'text',
+    label: 'Descripción',
+    editable: false,
+  },
+  {
+    key: 'photo',
+    type: 'image',
+    label: 'Foto',
+    editable: false,
+  },
+  {
+    key: 'audio',
+    type: 'audio',
+    label: 'Audio',
+    editable: false,
+  },
 ]
 
 export type DisplayPosition = {
@@ -62,6 +80,9 @@ export type DisplayPosition = {
   longitude: string
   latitude: string
   timestamp: number
+  description?: string
+  photo?: string
+  audio?: string
 }
 
 @Component({
@@ -71,7 +92,7 @@ export type DisplayPosition = {
 })
 export class TablesComponent implements OnInit {
   loading = false
-  positions: Position[] = []
+  positions: Data[] = []
   displayPositions: DisplayPosition[] = []
   sortedPositions: DisplayPosition[]
   columnsSchema: Column[] = COLUMNS_SCHEMA
@@ -100,7 +121,7 @@ export class TablesComponent implements OnInit {
     this.loading = true
     this.positionsService.getPositions().then((snapshot) => {
       this.positions = []
-      snapshot.forEach((position) => this.positions.push(position.data() as Position))
+      snapshot.forEach((position) => this.positions.push(position.data() as Data))
       this.refreshDataSource()
     })
   }
@@ -129,7 +150,7 @@ export class TablesComponent implements OnInit {
     .subscribe((result: {start: number, end: number, successful: boolean}) => {
       if(result.successful) {
         this.displayPositions = this.positions
-          .filter((position) => result.start <= position.timestamp && position.timestamp <= result.end)
+          .filter((position) => result.start <= position.position.timestamp && position.position.timestamp <= result.end)
           .map(this.toDisplayPosition)
           .sort((a,b) => a.timestamp < b.timestamp ? 1 : a.timestamp === b.timestamp ? 0 : -1)
         this.dataSource = new MatTableDataSource<DisplayPosition>(this.displayPositions)
@@ -178,25 +199,33 @@ export class TablesComponent implements OnInit {
     this.positionsService.updatePositions(this.displayPositions.map(this.toDatabasePosition))
   }
 
-  toDisplayPosition(position: Position): DisplayPosition {
+  toDisplayPosition(position: Data): DisplayPosition {
     return {
       id: position.id,
       code: position.code,
-      date: formatDate(new Date(position.timestamp), "dd/MM/yyyy", "en"),
-      time: formatDate(new Date(position.timestamp), "HH:mm", "en"),
-      longitude: position.longitude.toString(),
-      latitude: position.latitude.toString(),
-      timestamp: position.timestamp,
+      date: formatDate(new Date(position.position.timestamp), "dd/MM/yyyy", "en"),
+      time: formatDate(new Date(position.position.timestamp), "HH:mm", "en"),
+      longitude: position.position.longitude.toString(),
+      latitude: position.position.latitude.toString(),
+      timestamp: position.position.timestamp,
+      description: position.description,
+      photo: position.photo,
+      audio: position.audio,
     }
   }
 
-  toDatabasePosition(position: DisplayPosition): Position {
+  toDatabasePosition(position: DisplayPosition): Data {
     return {
       id: position.id,
       code: position.code || "",
-      longitude: parseFloat(position.longitude),
-      latitude: parseFloat(position.latitude),
-      timestamp: position.timestamp,
+      position: {
+        longitude: parseFloat(position.longitude),
+        latitude: parseFloat(position.latitude),
+        timestamp: position.timestamp,
+      },
+      description: position.description,
+      photo: position.photo,
+      audio: position.audio,
     }
   }
 

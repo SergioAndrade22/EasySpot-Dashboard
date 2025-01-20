@@ -1,11 +1,11 @@
 {
-  "name": "quelona-dashboard",
+  "name": "easyspot-dashboard",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "docs": "ng build --output-path docs --base-href=/Quelona-Dashboard/",
+    "docs": "ng build --output-path docs --base-href=/easyspot-dashboard/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"

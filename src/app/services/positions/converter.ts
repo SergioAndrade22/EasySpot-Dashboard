@@ -3,29 +3,31 @@ import {
     QueryDocumentSnapshot,
     SnapshotOptions,
 } from '@angular/fire/firestore'
-import { Position } from '../../types'
+import { Data } from '../../types'
 
 export const converter = {
-    toFirestore(position: Position): DocumentData {
+    toFirestore(data: Data): DocumentData {
       return {
-        id: position.id,
-        code: position.code,
-        latitude: position.latitude,
-        longitude: position.longitude,
-        timestamp: position.timestamp,
+        id: data.id,
+        code: data.code,
+        position: data.position,
+        description: data.description,
+        phot: data.photo,
+        audio: data.audio,
       }
     },
     fromFirestore(
-      snapshot: QueryDocumentSnapshot<Position>,
+      snapshot: QueryDocumentSnapshot<Data>,
       options: SnapshotOptions
-    ): Position {
+    ): Data {
       const data = snapshot.data(options)
       return {
         id: snapshot.id,
         code: data['code'],
-        latitude: data['latitude'],
-        longitude: data['longitude'],
-        timestamp: data['timestamp'],
+        position: data['position'],
+        description: data['description'],
+        photo: data['photo'],
+        audio: data['audio'],
       }
     },
   }

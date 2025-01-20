@@ -8,7 +8,7 @@ import {
   updateDoc,
 } from '@angular/fire/firestore'
 import { converter } from './converter'
-import { Position } from '../../types'
+import { Data } from '../../types'
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +21,7 @@ export class GpsPositionsService {
     return getDocs(q)
   }
 
-  updatePositions = (positions: Position[]) => {
+  updatePositions = (positions: Data[]) => {
     for (const position of positions){
       const docRef = doc(this.firestore, "positions", position.id)
       updateDoc(docRef, { code: position.code })

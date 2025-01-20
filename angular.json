@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Quelona-dashboard": {
+    "easyspot-dashboard": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/quelona-dashboard",
+            "outputPath": "dist/easyspot-dashboard",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -72,10 +72,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "Quelona-dashboard:build:production"
+              "browserTarget": "easyspot-dashboard:build:production"
             },
             "development": {
-              "browserTarget": "Quelona-dashboard:build:development"
+              "browserTarget": "easyspot-dashboard:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -83,7 +83,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "Quelona-dashboard:build"
+            "browserTarget": "easyspot-dashboard:build"
           }
         },
         "test": {
